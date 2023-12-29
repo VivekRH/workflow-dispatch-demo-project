@@ -37,6 +37,16 @@ resource "aws_security_group" "sg_frontendaccess" {
 
   }
 
+  ingress {
+    description      = "https access"
+    from_port        = 8375
+    to_port          = 8375
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+
+}
+
   egress {
     description = "Allowing all outgoing traffic"
     from_port = 0
