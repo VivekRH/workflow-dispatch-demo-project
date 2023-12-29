@@ -65,4 +65,4 @@ jobs:
           terraform apply \
             -var "instance_type=${{ github.event.inputs.instance_type }}" \
             -var "instance_ami"=${{ github.event.inputs.instance_ami }}" \
-            -auto-approve          
+            -auto-approve        
