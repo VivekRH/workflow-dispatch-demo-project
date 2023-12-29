@@ -25,9 +25,9 @@ jobs:
   build: 
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.DEV_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_SECRET_KEY }}
-      AWS_REGION: ${{ secrets.DEV_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.PROD_ACCESS_KEY }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.PROD_SECRET_KEY }}
+      AWS_REGION: ${{ secrets.PROD_REGION }}
 
     steps: 
 
@@ -42,11 +42,11 @@ jobs:
       - name: "Initializing Terraform"
         run: |
           terraform init \
-            --backend-config="bucket=${{ secrets.DEV_S3_BUCKET }}" \
+            --backend-config="bucket=${{ secrets.PROD_S3_BUCKET }}" \
             --backend-config="key=terraform.tfstate" \
-            --backend-config="access_key=${{ secrets.DEV_ACCESS_KEY }}" \
-            --backend-config="secret_key=${{ secrets.DEV_SECRET_KEY }}" \
-            --backend-config="region=${{ secrets.DEV_REGION }}" \
+            --backend-config="access_key=${{ secrets.PROD_ACCESS_KEY }}" \
+            --backend-config="secret_key=${{ secrets.PROD_SECRET_KEY }}" \
+            --backend-config="region=${{ secrets.PROD_REGION }}" \
 
       - name: "Formatting Terraform files"
         run: terraform fmt
@@ -55,7 +55,9 @@ jobs:
         run: terraform validate
 
       - name: "Terraform Plan"
-        run: terraform plan -var-file=development.tfvars
+        run: terraform plan /
+               -var "instance_type=${{ github.event.inputs.instance_type }}"
+               -var "instance_ami=${{ github.event.inputs.instance_ami }}"
 
       - name: "Terraform Apply"
         run: terraform apply -auto-approve -var-file=development.tfvars          
