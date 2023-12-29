@@ -12,24 +12,13 @@ on:
         type: choice
         description: "AWS ec2 instance type"
         options: 
-          - t2.small
-          - t2.micro
-        default:
-          - t2.micro
-
-      instance_region:
-        type: string
-        description: "Region for infra"
-        required: true
-        deafault:
-          - ap-south-1
+        - t2.small
+        - t2.micro
 
       instance_ami:
         type: string
         description: "AMI for the infra instance"
         required: true
-        default:
-          - ami-0ee4f2271a4df2d7d
 
 jobs:
 
