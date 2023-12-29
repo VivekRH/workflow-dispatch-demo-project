@@ -52,7 +52,7 @@ resource "aws_security_group" "sg_frontendaccess" {
 
 }
 
-resource "aws_instance" "shoppingapp_frontend" {
+resource "aws_instance" "shoppingapp_frontend_instance" {
 
   ami                    = var.instance_ami
   instance_type          = var.instance_type
