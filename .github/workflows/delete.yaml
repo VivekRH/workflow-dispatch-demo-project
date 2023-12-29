@@ -6,22 +6,6 @@ on:
   
  workflow_dispatch:
     
-   inputs: 
-      
-     instance_type:
-       type: choice
-       description: "AWS ec2 instance type"
-       options: 
-       - t2.small
-       - t2.micro
-       default: "t2.micro"
-
-     instance_ami:
-       type: string
-       description: "AMI for the infra instance"
-       required: true
-       default: "ami-0a0f1259dd1c90938"
-
 jobs:
 
   build: 
@@ -50,21 +34,10 @@ jobs:
             --backend-config="secret_key=${{ secrets.PROD_SECRET_KEY }}" \
             --backend-config="region=${{ secrets.PROD_REGION }}" \
 
-      - name: "Formatting Terraform files"
-        run: terraform fmt
 
-      - name: "Validating Terraform files"
-        run: terraform validate
-
-      - name: "Terraform Plan"
+      - name: "Terraform destroy"
         run: |
-          terraform plan \
-            -var "instance_type=${{ github.event.inputs.instance_type }}" \
-            -var "instance_ami=${{ github.event.inputs.instance_ami }}"
-
-      - name: "Terraform Apply"
-        run: |
-          terraform apply \
+          terraform destroy \
             -var "instance_type=${{ github.event.inputs.instance_type }}" \
             -var "instance_ami=${{ github.event.inputs.instance_ami }}" \
             -auto-approve        
