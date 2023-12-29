@@ -4,21 +4,21 @@ name: "Infra setup Development"
 
 on:
   
-  workflow_dispatch:
+ workflow_dispatch:
     
-    inputs: 
+   inputs: 
       
-      instance_type:
-        type: choice
-        description: "AWS ec2 instance type"
-        options: 
-        - t2.small
-        - t2.micro
+     instance_type:
+       type: choice
+       description: "AWS ec2 instance type"
+       options: 
+       - t2.small
+       - t2.micro
 
-      instance_ami:
-        type: string
-        description: "AMI for the infra instance"
-        required: true
+     instance_ami:
+       type: string
+       description: "AMI for the infra instance"
+       required: true
 
 jobs:
 
