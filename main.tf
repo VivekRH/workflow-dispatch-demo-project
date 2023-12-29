@@ -51,3 +51,18 @@ resource "aws_security_group" "sg_frontendaccess" {
   }
 
 }
+
+resource "aws_instance" "shoppingapp_frontend" {
+
+  ami                    = var.instance_ami
+  instance_type          = var.instance_type
+  key_name               = aws_key_pair.auth_key.key_name
+  vpc_security_group_ids = [aws_security_group.sg_frontendaccess.id]
+  tags = {
+    Name = "${var.project_name}-${var.project_env}"
+    Project = var.project_name
+    Environment = var.project_env
+  }
+
+}
+
