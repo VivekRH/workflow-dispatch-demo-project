@@ -10,12 +10,14 @@ variable "project_env" {
   type = string
 }
 
-variable "itype" {
+variable "instance_type" {
 
   description = "Instance type"
   type  = string
 
 }
+
+variable "instance_ami" {}
 
 variable "hosted_zone_name" {}
 
