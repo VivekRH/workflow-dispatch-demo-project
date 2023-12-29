@@ -1,6 +1,6 @@
 ---
 
-name: "Infra setup Development"
+name: "Infra setup Production"
 
 on:
   
@@ -62,6 +62,7 @@ jobs:
 
       - name: "Terraform Apply"
         run: |
-          terraform apply -auto-approve \
+          terraform apply \
             -var "instance_type=${{ github.event.inputs.instance_type }}" \
-            -var "instance_ami"=${{ github.event.inputs.instance_ami }}          
+            -var "instance_ami"=${{ github.event.inputs.instance_ami }}" \
+            -auto-approve          
