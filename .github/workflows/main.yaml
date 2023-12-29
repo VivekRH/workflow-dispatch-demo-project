@@ -55,9 +55,10 @@ jobs:
         run: terraform validate
 
       - name: "Terraform Plan"
-        run: terraform plan \
-               -var "instance_type=${{ github.event.inputs.instance_type }}"
-               -var "instance_ami=${{ github.event.inputs.instance_ami }}"
+        run: |
+          terraform plan \
+            -var "instance_type=${{ github.event.inputs.instance_type }}"
+            -var "instance_ami=${{ github.event.inputs.instance_ami }}"
 
       - name: "Terraform Apply"
         run: terraform apply -auto-approve -var-file=development.tfvars          
